@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <sstream>
+#include <iomanip>
 #include <array>
 #include <cassert>
 #include <cmath>
@@ -116,9 +118,9 @@ namespace merkle
         throw std::runtime_error("invalid hash string");
       for (size_t i = 0; i < SIZE; i++)
       {
-        int tmp;
-        sscanf(s.c_str() + 2 * i, "%02x", &tmp);
-        bytes[i] = tmp;
+        std::stringstream ss;
+        ss << std::hex << s.substr(2 * i, 2);
+        ss >> bytes[i];
       }
     }
 
